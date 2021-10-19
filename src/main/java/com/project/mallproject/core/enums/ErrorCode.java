@@ -1,4 +1,4 @@
-package com.project.mallproject.core.exception;
+package com.project.mallproject.core.enums;
 
 /**
  * Description:

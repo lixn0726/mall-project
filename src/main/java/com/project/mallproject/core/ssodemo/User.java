@@ -1,4 +1,4 @@
-package com.project.mallproject.core.sso;
+package com.project.mallproject.core.ssodemo;
 
 /**
  * Description:

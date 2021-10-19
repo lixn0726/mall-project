@@ -1,4 +1,5 @@
-//package com.project.mallproject.core.sso;
+package com.project.mallproject.core.ssodemo;
+
 //
 //import cn.hutool.core.bean.BeanUtil;
 //import org.apache.tomcat.util.buf.StringUtils;
@@ -17,7 +18,7 @@
 // *
 // * @author lixn
 // */
-//public class SSOController {
+public class SSOController {
 //    public static final String REDIS_USER_TOKEN = "redis_user_token";
 //    public static final String REDIS_USER_TICKET = "redis_user_ticket";
 //
@@ -142,4 +143,4 @@
 //
 //
 //
-//}
+}

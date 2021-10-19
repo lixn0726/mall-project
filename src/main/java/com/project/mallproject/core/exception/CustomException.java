@@ -1,24 +1,26 @@
 package com.project.mallproject.core.exception;
 
+import com.project.mallproject.core.enums.ErrorCode;
+
 /**
  * Description:
  * date: 2021/10/19 3:24 下午
  *
  * @author lixn
  */
-public class WrongTicketException extends RuntimeException{
+public class CustomException extends RuntimeException{
     private Integer code;
     private String message;
 
-    public WrongTicketException() {
+    public CustomException() {
 
     }
 
-    public WrongTicketException(String message) {
+    public CustomException(String message) {
         super(message);
     }
 
-    public WrongTicketException(Integer code, String message) {
+    public CustomException(Integer code, String message) {
         super(message);
         this.code = code;
     }
@@ -26,7 +28,7 @@ public class WrongTicketException extends RuntimeException{
     /*
      * 通过错误枚举类来定义异常
      */
-    public WrongTicketException(ErrorCode errorCode) {
+    public CustomException(ErrorCode errorCode) {
         this.message = errorCode.getMsg();
         this.code = errorCode.getCode();
     }

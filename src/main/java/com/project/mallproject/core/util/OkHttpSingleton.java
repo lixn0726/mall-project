@@ -14,6 +14,7 @@ import java.util.Map;
  *
  * @author lixn
  */
+@Deprecated
 @Component
 public class OkHttpSingleton {
     private static Logger logger = CommonUtil.createLogger(OkHttpSingleton.class);

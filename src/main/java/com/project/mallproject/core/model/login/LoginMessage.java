@@ -3,7 +3,7 @@ package com.project.mallproject.core.model.login;
 import com.project.mallproject.core.common.Constant;
 
 /**
- * Description:
+ * Description: 自定义类似session，保存用户登陆状态
  * date: 2021/10/18 4:59 下午
  *
  * @author lixn

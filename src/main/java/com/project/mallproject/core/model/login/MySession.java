@@ -6,6 +6,7 @@ package com.project.mallproject.core.model.login;
  *
  * @author lixn
  */
+@Deprecated
 public class MySession {
     private String sessionId;
     private String domain;

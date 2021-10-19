@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author lixn
  */
+@Deprecated
 @Configuration
 public class OkHttpConfiguration {
     @Bean
