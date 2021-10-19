@@ -17,7 +17,7 @@ import java.lang.annotation.*;
  *  1、搭配自定义注解处理器
  *  2、配合Spring
  */
-public @interface Log {
+public @interface AnnotationExplain {
     /*
      * 接口描述
      */

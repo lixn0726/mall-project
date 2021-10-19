@@ -1,5 +1,7 @@
 package com.project.mallproject.core.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.security.provider.SHA;
 
 import java.math.BigInteger;
@@ -36,5 +38,10 @@ public class CommonUtil {
             e.printStackTrace();
         }
         return sha;
+    }
+
+    // todo 转成一个切面试试
+    public Logger createLogger(Class<?> clazz) {
+        return LoggerFactory.getLogger(clazz);
     }
 }

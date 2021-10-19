@@ -2,6 +2,7 @@ package com.project.mallproject.core.filter;
 
 import com.project.mallproject.core.annotation.UserAuthenticate;
 import com.project.mallproject.core.annotation.handler.AuthenticationHandler;
+import com.project.mallproject.core.util.CommonUtil;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -22,18 +23,16 @@ public class RequestFilter implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method = handlerMethod.getMethod();
-        System.out.println("method name is "+ method.getName());
+        Method method = handlerMethod.getMethod(); // 这里拿出来的是 @Controller下的方法名，检查这个方法是否有注解，是否需要鉴权
         UserAuthenticate userAuthenticate = method.getAnnotation(UserAuthenticate.class);
-        if (!Objects.nonNull(userAuthenticate) || !userAuthenticate.permission()) {
+        if (!CommonUtil.isNotNull(userAuthenticate) || !userAuthenticate.permission()) { // 没有注解或者不需要鉴权
             System.out.println("this method has this annotation but do not need to authenticate");
             return true;
         } else {
             // todo 登陆and鉴权
-            System.out.println("has annotation and need to authenticate");
             AuthenticationHandler authenticationHandler = new AuthenticationHandler();
             authenticationHandler.handle(request, response, method);
-            return true;
+            return false;
         }
     }
 }

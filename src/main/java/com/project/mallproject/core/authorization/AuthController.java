@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.UUID;
-
 import static com.project.mallproject.core.common.Constant.PUBLIC_SHA;
 import static com.project.mallproject.core.common.Constant.SIGNED_IN;
 
@@ -32,6 +30,9 @@ public class AuthController {
     @RequestMapping("/login")
     public void login(@RequestParam("username") String username, @RequestParam("pwd")String pwd, HttpServletResponse response) {
         // todo 校验用户名和密码
+        if (!CommonUtil.isNotNull(pwd)) {
+            return;
+        }
         String token = CommonUtil.generateToken(username);
         LoginMessage message = new LoginMessage();
         message.setLoginTime(String.valueOf(System.currentTimeMillis()));
