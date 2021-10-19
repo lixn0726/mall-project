@@ -2,15 +2,19 @@ package com.project.mallproject.core.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.security.provider.SHA;
 
+
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-import static com.project.mallproject.core.common.Constant.PUBLIC_SHA;
+
+import static com.project.mallproject.core.common.Constant.SSO_LOGIN;
 
 /**
  * Description:
@@ -21,8 +25,23 @@ import static com.project.mallproject.core.common.Constant.PUBLIC_SHA;
 public class CommonUtil {
     public static final String KEY_SHA = "SHA";
 
-    public static boolean isNotNull(Object obj) {
-        return Objects.nonNull(obj);
+    public static boolean isNotNull(Object ... obj) {
+        boolean flag = true;
+        for (Object o : obj) {
+            if (!Objects.nonNull(o)) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    // todo 修改一下，将几种获取重定向URL合并成一个方法
+    public static String toRedirect(HttpServletRequest request, String redirectType) {
+        StringBuffer buffer = new StringBuffer();
+        String back = request.getRequestURL().toString(); // 原始url
+        buffer.append(redirectType).append("back=").append(back);
+        return buffer.toString();
     }
 
     public static String generateToken(String username) {
@@ -41,7 +60,24 @@ public class CommonUtil {
     }
 
     // todo 转成一个切面试试
-    public Logger createLogger(Class<?> clazz) {
+    public static Logger createLogger(Class<?> clazz) {
         return LoggerFactory.getLogger(clazz);
+    }
+
+    public static Map<String, String> getURLParams(String url) {
+        String urlQueries = url.substring(url.indexOf("?") + 1);
+        if (urlQueries.length() == 0) {
+            return null;
+        }
+        String[] queries = urlQueries.split("&");
+        /*
+         * String[0] = "xx=xxx"
+         * String[1] = "xxx=xxxxxxx"
+         */
+        Map<String, String> params = new HashMap<>();
+        for (String par : queries) {
+            params.put(par.split("=")[0], par.split("=")[1]);
+        }
+        return params;
     }
 }

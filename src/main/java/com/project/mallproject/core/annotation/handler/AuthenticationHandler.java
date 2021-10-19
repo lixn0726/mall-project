@@ -1,14 +1,14 @@
 package com.project.mallproject.core.annotation.handler;
 
-import com.project.mallproject.core.common.Constant;
 import com.project.mallproject.core.util.CommonUtil;
-import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+
+import static com.project.mallproject.core.common.Constant.*;
 
 /**
  * Description: 需要进行鉴权
@@ -16,22 +16,43 @@ import java.lang.reflect.Parameter;
  *
  * @author lixn
  */
+@Component
 public class AuthenticationHandler implements BasicHandler {
-    private final Constant constant = new Constant();
+
     @Override
-    public boolean handle(HttpServletRequest request, HttpServletResponse response, Method method) throws IOException {
-        String ticket = request.getHeader("ticket");
-        if (CommonUtil.isNotNull(ticket)) {
-            System.out.println("I got the ticket, its value is " + ticket);
-            String toRedirect = "http://localhost:8081/sso/auth?ticket=" +
-                    ticket;
+    public boolean handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String ticket = getTicketFromCookie(request, COOKIE_USER_TICKET); // 从cookie中获取这个ticket
+        if (!verifyTicket(ticket)) {
+            System.out.println("票据异常");
+            return false; // todo 肯定要改的，ticket异常需要全局捕获来处理
+        }
+        if (CommonUtil.isNotNull(ticket)) { // 有ticket，跳去验证
+            String toRedirect = CommonUtil.toRedirect(request, SSO_AUTH);
             response.sendRedirect(toRedirect);
-        } else {
-            String username = request.getParameter("username");
-            String pwd = request.getParameter("pws");
-            String toLogin = constant.REDIRECT_TO_LOGIN + "username=" + username + "?" + "pwd=" + pwd;
+        } else { // 没有ticket，跳去登陆
+            String toLogin = CommonUtil.toRedirect(request, SSO_LOGIN);
             response.sendRedirect(toLogin);
         }
         return false;
+    }
+
+    private String getTicketFromCookie(HttpServletRequest request, String key) {
+        Cookie[] cookieList = request.getCookies();
+        if (cookieList == null || !CommonUtil.isNotNull(key)) {
+            return null;
+        }
+        String cookieValue = null;
+        for (Cookie cookie : cookieList) {
+            if (cookie.getName().equals(key)) {
+                cookieValue = cookie.getValue();
+                break;
+            }
+        }
+        return cookieValue;
+    }
+
+    private boolean verifyTicket(String ticket) {
+        String userId = redis.get(REDIS_USER_TICKET + ":" + ticket);
+        return CommonUtil.isNotNull(ticket, userId, redis.get(REDIS_USER_TOKEN + ":" + userId));
     }
 }

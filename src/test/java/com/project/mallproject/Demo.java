@@ -14,7 +14,8 @@ import java.util.UUID;
 public class Demo {
     @Test
     public void test() {
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        System.out.println(uuid);
+        String back = "http://localhost:8180/sso/api?back=xxx";
+        String originURL = back.substring(back.indexOf("=") + 1);
+        System.out.println(originURL);
     }
 }

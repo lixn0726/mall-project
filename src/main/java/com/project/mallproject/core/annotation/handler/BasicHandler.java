@@ -12,5 +12,5 @@ import java.lang.reflect.Method;
  * @author lixn
  */
 public interface BasicHandler {
-    public boolean handle(HttpServletRequest request, HttpServletResponse response, Method method) throws IOException;
+    public boolean handle(HttpServletRequest request, HttpServletResponse response) throws IOException;
 }

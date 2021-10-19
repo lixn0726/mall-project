@@ -1,5 +1,7 @@
 package com.project.mallproject.core.model.login;
 
+import com.project.mallproject.core.common.Constant;
+
 /**
  * Description:
  * date: 2021/10/18 4:59 下午
@@ -9,7 +11,7 @@ package com.project.mallproject.core.model.login;
 public class LoginMessage {
     private String loginTime;
     private String tokenValue;
-    private String salt;
+    private String salt = Constant.PUBLIC_SHA;
     private String pastTime;
     private LoginMessage refresh = null;
 

@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
-import static com.project.mallproject.core.common.Constant.PUBLIC_SHA;
-import static com.project.mallproject.core.common.Constant.SIGNED_IN;
+import java.lang.reflect.Parameter;
+import java.util.Map;
+
+import static com.project.mallproject.core.common.Constant.*;
 
 /**
  * Description:
@@ -20,26 +22,18 @@ import static com.project.mallproject.core.common.Constant.SIGNED_IN;
 @RestController
 @RequestMapping("/sso")
 public class AuthController {
-    @RequestMapping("/auth")
+
+    @RequestMapping("/auth") // doLogin
     public void auth(@RequestParam("ticket") String ticket, HttpServletResponse response) {
         System.out.println(ticket);
-
-        response.setHeader("token", "hello bae, please save your token carefully");
     }
 
+    /**
+     *
+     * @param back 初始URL
+     */
     @RequestMapping("/login")
-    public void login(@RequestParam("username") String username, @RequestParam("pwd")String pwd, HttpServletResponse response) {
-        // todo 校验用户名和密码
-        if (!CommonUtil.isNotNull(pwd)) {
-            return;
-        }
-        String token = CommonUtil.generateToken(username);
-        LoginMessage message = new LoginMessage();
-        message.setLoginTime(String.valueOf(System.currentTimeMillis()));
-        message.setPastTime(String.valueOf(System.currentTimeMillis() + 300000000));
-        message.setSalt(PUBLIC_SHA);
-        message.setTokenValue(token);
-//        message.setRefresh(todo 考虑一下类似于refreshToken的设计);
-        SIGNED_IN.put(username, message);
+    public void ssoLogin(@RequestParam("back") String back) {
+
     }
 }

@@ -9,7 +9,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import java.util.Objects;
+
+
+import static com.project.mallproject.core.common.Constant.SSO_LOGIN;
 
 /**
  * Description: token、ticket之类的身份验证信息最好放在header里
@@ -25,14 +27,12 @@ public class RequestFilter implements HandlerInterceptor {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod(); // 这里拿出来的是 @Controller下的方法名，检查这个方法是否有注解，是否需要鉴权
         UserAuthenticate userAuthenticate = method.getAnnotation(UserAuthenticate.class);
-        if (!CommonUtil.isNotNull(userAuthenticate) || !userAuthenticate.permission()) { // 没有注解或者不需要鉴权
-            System.out.println("this method has this annotation but do not need to authenticate");
+        if (!CommonUtil.isNotNull(userAuthenticate) || !userAuthenticate.permission()) { // 没有注解或者不需要鉴权，直接放行
             return true;
-        } else {
-            // todo 登陆and鉴权
+        } else { // 有注解 统一跳转到登陆
             AuthenticationHandler authenticationHandler = new AuthenticationHandler();
-            authenticationHandler.handle(request, response, method);
-            return false;
+            return authenticationHandler.handle(request, response);
         }
     }
+
 }
