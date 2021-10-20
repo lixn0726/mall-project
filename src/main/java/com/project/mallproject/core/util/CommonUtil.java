@@ -36,7 +36,7 @@ public class CommonUtil {
 
     public static String createTmpTicket() {
         String tmpTicket = UUID.randomUUID().toString().trim();
-        redis.put(REDIS_TMP_TICKET + ":" + tmpTicket, EncryptUtil.encrypt(tmpTicket, MD5)); // todo 修改成真正的redis，现在还只是模拟
+        redis.put(REDIS_TMP_TICKET + ":" + tmpTicket, EncryptUtil.encrypt(tmpTicket, MD5));
         return tmpTicket;
     }
 

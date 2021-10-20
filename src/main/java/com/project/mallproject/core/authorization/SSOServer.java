@@ -1,10 +1,9 @@
 package com.project.mallproject.core.authorization;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+
+import com.project.mallproject.core.chain.DispenserManager;
 import com.project.mallproject.core.enums.ErrorCode;
 import com.project.mallproject.core.exception.CustomException;
-import com.project.mallproject.core.model.login.LoginMessage;
 import com.project.mallproject.core.util.CommonUtil;
 import com.project.mallproject.core.util.EncryptUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,25 +57,26 @@ public class SSOServer {
     @RequestMapping("/auth")
     public void ssoAuth(@RequestParam("tmpTicket") String tmpTicket, HttpServletRequest request, HttpServletResponse response) throws IOException{
         String tmpTicketValue = redis.get(REDIS_TMP_TICKET + ":" + tmpTicket);
-        if (!CommonUtil.isNotNull(tmpTicketValue)) { // 为空，临时票据出错
-            throw new CustomException(ErrorCode.ERROR_TICKET);
-        }
-        String encryptTmpTicket = EncryptUtil.encrypt(tmpTicketValue, MD5);
-        if (!encryptTmpTicket.equals(tmpTicket)) {
-            throw new CustomException(ErrorCode.ERROR_TICKET);
-        } else {
-            redis.remove(REDIS_TMP_TICKET + ":" + tmpTicket); // 验证成功后，将这个tmpTicket从redis中删除
-        }
-        String userTicket = getCookie(request, COOKIE_USER_TICKET);
-        String userId = redis.get(REDIS_USER_TICKET + ":" + userTicket);
-        if (!CommonUtil.isNotNull(userId)) {
-            throw new CustomException(ErrorCode.ERROR_TICKET);
-        }
-        String userRedis = redis.get(REDIS_USER_TOKEN + ":" + userTicket);
-        if (!CommonUtil.isNotNull(userRedis)) {
-            throw new CustomException(ErrorCode.ERROR_TICKET);
-        }
-
+        DispenserManager manager = new DispenserManager();
+        manager.c1.dispense(tmpTicketValue, tmpTicket);
+//        if (!CommonUtil.isNotNull(tmpTicketValue)) { // 为空，临时票据出错
+//            throw new CustomException(ErrorCode.ERROR_TICKET);
+//        }
+//        String encryptTmpTicket = EncryptUtil.encrypt(tmpTicketValue, MD5);
+//        if (!encryptTmpTicket.equals(tmpTicket)) {
+//            throw new CustomException(ErrorCode.ERROR_TICKET);
+//        } else {
+//            redis.remove(REDIS_TMP_TICKET + ":" + tmpTicket); // 验证成功后，将这个tmpTicket从redis中删除
+//        }
+//        String userTicket = getCookie(request, COOKIE_USER_TICKET);
+//        String userId = redis.get(REDIS_USER_TICKET + ":" + userTicket);
+//        if (!CommonUtil.isNotNull(userId)) {
+//            throw new CustomException(ErrorCode.ERROR_TICKET);
+//        }
+//        String userRedis = redis.get(REDIS_USER_TOKEN + ":" + userTicket);
+//        if (!CommonUtil.isNotNull(userRedis)) {
+//            throw new CustomException(ErrorCode.ERROR_TICKET);
+//        }
         response.sendRedirect("");
     }
 
