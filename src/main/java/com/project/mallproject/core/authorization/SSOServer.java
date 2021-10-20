@@ -1,7 +1,7 @@
 package com.project.mallproject.core.authorization;
 
 
-import com.project.mallproject.core.chain.DispenserManager;
+import com.project.mallproject.core.chain.CustomChain;
 import com.project.mallproject.core.enums.ErrorCode;
 import com.project.mallproject.core.exception.CustomException;
 import com.project.mallproject.core.util.CommonUtil;
@@ -50,33 +50,19 @@ public class SSOServer {
         response.sendRedirect(back + "?tmpTicket=" + tmpTicket);
         return null;
     }
-
     /*
      * 验证ticket，拿到token
+     * 责任链模式的版本
+     * CustomChain chain = new CustomChain();
+     * chain.filtrate(tmpTicket, tmpTicketValue);
+     * 因为如果参数不合法，每个处理器都会抛出异常中断程序
+     * response.sendRedirect(url);
      */
     @RequestMapping("/auth")
     public void ssoAuth(@RequestParam("tmpTicket") String tmpTicket, HttpServletRequest request, HttpServletResponse response) throws IOException{
         String tmpTicketValue = redis.get(REDIS_TMP_TICKET + ":" + tmpTicket);
-        DispenserManager manager = new DispenserManager();
-        manager.c1.dispense(tmpTicketValue, tmpTicket);
-//        if (!CommonUtil.isNotNull(tmpTicketValue)) { // 为空，临时票据出错
-//            throw new CustomException(ErrorCode.ERROR_TICKET);
-//        }
-//        String encryptTmpTicket = EncryptUtil.encrypt(tmpTicketValue, MD5);
-//        if (!encryptTmpTicket.equals(tmpTicket)) {
-//            throw new CustomException(ErrorCode.ERROR_TICKET);
-//        } else {
-//            redis.remove(REDIS_TMP_TICKET + ":" + tmpTicket); // 验证成功后，将这个tmpTicket从redis中删除
-//        }
-//        String userTicket = getCookie(request, COOKIE_USER_TICKET);
-//        String userId = redis.get(REDIS_USER_TICKET + ":" + userTicket);
-//        if (!CommonUtil.isNotNull(userId)) {
-//            throw new CustomException(ErrorCode.ERROR_TICKET);
-//        }
-//        String userRedis = redis.get(REDIS_USER_TOKEN + ":" + userTicket);
-//        if (!CommonUtil.isNotNull(userRedis)) {
-//            throw new CustomException(ErrorCode.ERROR_TICKET);
-//        }
+        CustomChain chain = new CustomChain();
+        chain.getHead().filtrate(request, tmpTicket, tmpTicketValue);
         response.sendRedirect("");
     }
 

@@ -9,7 +9,6 @@ import java.lang.reflect.Method;
  *
  * @author lixn
  */
-@Deprecated // 暂时用不上
 public class IdentityHandler {
     public boolean handle(HttpServletRequest request, Method method) {
         return false;
