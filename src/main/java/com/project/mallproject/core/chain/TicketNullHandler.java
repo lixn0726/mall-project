@@ -4,24 +4,19 @@ import com.project.mallproject.core.enums.ErrorCode;
 import com.project.mallproject.core.exception.CustomException;
 import com.project.mallproject.core.util.CommonUtil;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Description:
- * date: 2021/10/20 9:37 上午
+ * date: 2021/10/20 2:48 下午
  *
  * @author lixn
  */
-public class StrNotNullDispenser implements DispenseChain{
-    private DispenseChain dispenseChain;
-
+public class TicketNullHandler extends IAbstractHandler{
     @Override
-    public void setNextChain(DispenseChain chain) {
-        this.dispenseChain = chain;
-    }
-
-    @Override
-    public void dispense(String tmpTicketValue, String tmpTicket) {
+    public void filtrate(HttpServletRequest request, String tmpTicket, String tmpTicketValue) {
         if (CommonUtil.isNotNull(tmpTicketValue)) {
-            this.dispenseChain.dispense(tmpTicketValue, tmpTicket);
+            this.getChain().filtrate(request, tmpTicket, tmpTicketValue);
         } else {
             throw new CustomException(ErrorCode.ERROR_TICKET);
         }
