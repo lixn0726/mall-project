@@ -5,6 +5,8 @@ import com.project.mallproject.core.service.IUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Description:
  * date: 2021/10/18 2:42 下午
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author lixn
  */
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends CommonServiceImpl<User> implements IUserService {
     @Override
     public boolean login(User user) {
         return false;
@@ -21,5 +23,25 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String hasAnnotation() {
         return "I have this annotation";
+    }
+
+    @Override
+    public List<User> fetchAll() {
+        return super.fetchAll();
+    }
+
+    @Override
+    public void delete(User user) {
+        super.delete(user);
+    }
+
+    @Override
+    public int update(User user) {
+        return super.update(user);
+    }
+
+    @Override
+    public int insert(User user) {
+        return super.insert(user);
     }
 }
