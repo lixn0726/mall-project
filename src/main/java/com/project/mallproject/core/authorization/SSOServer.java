@@ -1,11 +1,12 @@
 package com.project.mallproject.core.authorization;
 
 
-import com.project.mallproject.core.chain.CustomChain;
+import com.project.mallproject.core.chain.AccessHandler;
+import com.project.mallproject.core.chain.AliveHandler;
+import com.project.mallproject.core.chain.NotNullHandler;
 import com.project.mallproject.core.enums.ErrorCode;
 import com.project.mallproject.core.exception.CustomException;
 import com.project.mallproject.core.util.CommonUtil;
-import com.project.mallproject.core.util.EncryptUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,9 +62,14 @@ public class SSOServer {
     @RequestMapping("/auth")
     public void ssoAuth(@RequestParam("tmpTicket") String tmpTicket, HttpServletRequest request, HttpServletResponse response) throws IOException{
         String tmpTicketValue = redis.get(REDIS_TMP_TICKET + ":" + tmpTicket);
-        CustomChain chain = new CustomChain();
-        chain.getHead().filtrate(request, tmpTicket, tmpTicketValue);
-        response.sendRedirect("");
+        // 改进责任链模式
+        NotNullHandler handler = new NotNullHandler();
+        handler.linkWith(new AccessHandler(request)).linkWith(new AliveHandler());
+        if (handler.check(tmpTicket, tmpTicketValue)) {
+            response.sendRedirect("");
+        } else {
+            throw new CustomException(ErrorCode.ERROR_TICKET);
+        }
     }
 
     @RequestMapping("/logout")
