@@ -1,23 +1,25 @@
 package com.project.mallproject.core.chain;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * Description:
- * date: 2021/10/20 2:31 下午
+ * date: 2021/10/25 3:17 下午
  *
  * @author lixn
  */
 public abstract class IAbstractHandler {
-    protected IAbstractHandler chain;
+    protected IAbstractHandler next;
 
-    public abstract void filtrate(HttpServletRequest request, String tmpTicket, String tmpTicketValue);
-
-    public void setChain(IAbstractHandler chain) {
-        this.chain = chain;
+    public IAbstractHandler linkWith(IAbstractHandler next) {
+        this.next = next;
+        return next;
     }
 
-    public IAbstractHandler getChain() {
-        return this.chain;
+    public abstract boolean check(String val1, String val2);
+
+    protected boolean checkNext(String val1, String val2) {
+        if (next == null) {
+            return true;
+        }
+        return next.checkNext(val1, val2);
     }
 }

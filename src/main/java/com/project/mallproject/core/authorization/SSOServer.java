@@ -66,6 +66,7 @@ public class SSOServer {
         NotNullHandler handler = new NotNullHandler();
         handler.linkWith(new AccessHandler(request)).linkWith(new AliveHandler());
         if (handler.check(tmpTicket, tmpTicketValue)) {
+            // todo
             response.sendRedirect("");
         } else {
             throw new CustomException(ErrorCode.ERROR_TICKET);
