@@ -1,4 +1,4 @@
-package com.project.mallproject.other_demo.guru.chain;
+package com.project.mallproject.otherdemo.guru.chain;
 
 /**
  * @Author lixn

@@ -1,4 +1,4 @@
-package com.project.mallproject.other_demo.guru.chain;
+package com.project.mallproject.otherdemo.guru.chain;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -6,21 +6,22 @@ package com.project.mallproject.core.model.user;
  *
  * @author lixn
  */
+
 public class User {
-    private String userId;
+    private String id;
     private String password;
     private String userInfoId;
 
     public static class Builder {
-        private String userId;
+        private String id;
         private String password;
         private String userInfoId;
 
         public Builder() {
         }
 
-        public Builder withId(String userId) {
-            this.userId = userId;
+        public Builder withId(String id) {
+            this.id = id;
             return this;
         }
 
@@ -39,18 +40,18 @@ public class User {
         }
     }
 
-    private User(Builder builder) {
-        this.userId = builder.userId;
+    public User(Builder builder) {
+        this.id = builder.id;
         this.password = builder.password;
         this.userInfoId = builder.userInfoId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getid() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setid(String id) {
+        this.id = id;
     }
 
     public String getPassword() {

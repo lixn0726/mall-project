@@ -1,4 +1,4 @@
-package com.project.mallproject.core.chain;
+package com.project.mallproject.core.chain.authlogin;
 
 /**
  * Description:

@@ -1,4 +1,4 @@
-package com.project.mallproject.core.ssodemo;
+package com.project.mallproject.otherdemo.ssodemo;
 
 //
 //import cn.hutool.core.bean.BeanUtil;

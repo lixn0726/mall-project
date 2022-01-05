@@ -14,6 +14,18 @@ public class SysLogBo {
     private String remark;
     private String createDate;
 
+    @Override
+    public String toString() {
+        return "SysLogBo{" +
+                "className='" + className + '\'' +
+                ", methodName='" + methodName + '\'' +
+                ", params='" + params + '\'' +
+                ", execTime=" + execTime +
+                ", remark='" + remark + '\'' +
+                ", createDate='" + createDate + '\'' +
+                '}';
+    }
+
     public SysLogBo(String className, String methodName, String params, Long execTime, String remark, String createDate) {
         this.className = className;
         this.methodName = methodName;

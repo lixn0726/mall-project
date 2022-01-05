@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author lixn
  */
-@Service
+@Service(value = "userService")
 public class UserServiceImpl extends CommonServiceImpl<User> implements IUserService {
     @Override
     public boolean login(User user) {

@@ -1,5 +1,7 @@
 package com.project.mallproject.core.model.user;
 
+import com.project.mallproject.core.enums.AuthorityType;
+
 /**
  * Description:
  * date: 2021/10/12 5:27 下午
@@ -9,9 +11,18 @@ package com.project.mallproject.core.model.user;
 public class UserInfo {
     private int id;
     private String nickname;
-    private String individualSignature;
+    private String signature;
     private String picture;
     private String qrCode;
+    private AuthorityType authority;
+
+    public AuthorityType getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(AuthorityType authority) {
+        this.authority = authority;
+    }
 
     public int getId() {
         return id;
@@ -29,12 +40,12 @@ public class UserInfo {
         this.nickname = nickname;
     }
 
-    public String getIndividualSignature() {
-        return individualSignature;
+    public String getsignature() {
+        return signature;
     }
 
-    public void setIndividualSignature(String individualSignature) {
-        this.individualSignature = individualSignature;
+    public void setsignature(String signature) {
+        this.signature = signature;
     }
 
     public String getPicture() {

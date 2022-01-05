@@ -1,4 +1,4 @@
-package com.project.mallproject.core.ssodemo;
+package com.project.mallproject.otherdemo.ssodemo;
 
 /**
  * Description:
@@ -6,5 +6,5 @@ package com.project.mallproject.core.ssodemo;
  *
  * @author lixn
  */
-public class UserVo {
+public class UserResult {
 }

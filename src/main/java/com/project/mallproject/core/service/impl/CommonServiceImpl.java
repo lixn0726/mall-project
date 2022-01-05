@@ -1,6 +1,7 @@
 package com.project.mallproject.core.service.impl;
 
 import com.project.mallproject.core.service.ICommonService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  *
  * @author lixn
  */
+@Service
 public class CommonServiceImpl<T> implements ICommonService<T> {
     @Override
     public List<T> fetchAll() {

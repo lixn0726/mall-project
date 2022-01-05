@@ -1,9 +1,9 @@
 package com.project.mallproject.core.authorization;
 
 
-import com.project.mallproject.core.chain.AccessHandler;
-import com.project.mallproject.core.chain.AliveHandler;
-import com.project.mallproject.core.chain.NotNullHandler;
+import com.project.mallproject.core.chain.authlogin.AccessHandler;
+import com.project.mallproject.core.chain.authlogin.AliveHandler;
+import com.project.mallproject.core.chain.authlogin.NotNullHandler;
 import com.project.mallproject.core.enums.ErrorCode;
 import com.project.mallproject.core.exception.CustomException;
 import com.project.mallproject.core.util.CommonUtil;

@@ -9,6 +9,7 @@ import java.lang.reflect.Parameter;
  *
  * @author lixn
  */
+@Deprecated
 public class WebLog {
     private String basePath;
     private String ip;

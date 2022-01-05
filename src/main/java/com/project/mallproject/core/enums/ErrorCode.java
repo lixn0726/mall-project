@@ -1,7 +1,7 @@
 package com.project.mallproject.core.enums;
 
 /**
- * Description:
+ * Description: 自定义错误码
  * date: 2021/10/19 3:25 下午
  *
  * @author lixn

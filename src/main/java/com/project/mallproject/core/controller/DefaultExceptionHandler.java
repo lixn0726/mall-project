@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * Description: 自定义异常处理器，主要是@RestControllerAdvice，controller增强器
+ * Description: 自定义异常处理器，@RestControllerAdvice意为controller增强器
+ *
  * date: 2021/10/19 3:36 下午
  *
  * @author lixn

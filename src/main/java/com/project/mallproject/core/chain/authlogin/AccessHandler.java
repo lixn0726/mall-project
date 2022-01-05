@@ -1,4 +1,4 @@
-package com.project.mallproject.core.chain;
+package com.project.mallproject.core.chain.authlogin;
 
 import com.project.mallproject.core.common.Constant;
 import com.project.mallproject.core.common.ConstantVariables;

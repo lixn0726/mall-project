@@ -1,4 +1,4 @@
-package com.project.mallproject.other_demo.chaindemo;
+package com.project.mallproject.otherdemo.chaindemo;
 
 /**
  * Description:

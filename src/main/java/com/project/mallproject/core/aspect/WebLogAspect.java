@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
  *
  * @author lixn
  */
+@Deprecated
 @Aspect
 @Component
 @Order(1)

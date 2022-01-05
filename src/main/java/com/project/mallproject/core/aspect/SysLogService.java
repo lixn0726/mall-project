@@ -17,6 +17,7 @@ public class SysLogService {
 
     public boolean save(SysLogBo sysLogBo) {
         log.info(sysLogBo.getParams());
+        System.out.println(sysLogBo.toString());
         return true;
     }
 }
